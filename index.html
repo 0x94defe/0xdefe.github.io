@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>0xdefe | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================= RESET & BASE ============================ */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+      }
+
+      body {
+        background: #0b0f19;
+        color: #d1d5db;
+        line-height: 1.6;
+        overflow: hidden; 
+      }
+
+    /* ================= HEADER ================================== */
+      header {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at top, #111827, #020617);
+        text-align: center;
+      }
+
+      header h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        opacity: 0;
+        animation: fadeIn 1s ease forwards;
+      }
+
+      .role {
+        margin-top: 12px;
+        color: #9ca3af;
+        font-size: 1.1rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        opacity: 0;
+        animation: fadeIn 1s ease forwards;
+        animation-delay: 0.5s;
+      }
+
+      .description {
+        margin-top: 6px;
+        color: #4b5563;
+        font-size: 0.9rem;
+        font-style: italic;
+        font-weight: 300;
+        opacity: 0;
+        animation: fadeIn 1s ease forwards;
+        animation-delay: 0.8s;
+      }
+
+
+      /* Animacion para el grupo de ladrillos */
+      .tech-stack {
+        margin-top: 30px;
+        width: 100%;
+        max-width: 700px;
+        opacity: 0;
+        animation: fadeIn 1s ease forwards;
+        animation-delay: 1.2s;
+      }
+
+      .puzzle-wall {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 10px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .brick-row {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+      }
+
+      .brick-row:nth-child(even) {
+        padding: 0 20px; /* Crea el efecto visual de que los ladrillos no coinciden arriba/abajo */
+      }
+
+      .base-foundation {
+        flex: 1;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-bottom: 3px solid rgba(255, 255, 255, 0.008) !important; 
+        color: #9ca3af !important;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 18px !important;
+      }
+
+      .tech-piece {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 3px;
+        padding: 10px 18px;
+        font-family: monospace;
+        font-size: 0.75rem;
+        color: #9ca3af;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        backdrop-filter: blur(4px);
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;  
+      }
+
+      .tech-piece:hover {
+        background: rgba(255, 255, 255, 0.06); 
+        border-color: rgba(255, 255, 255, 0.2); 
+        color: #d1d5db;
+        transform: translateZ(20px) rotateX(2deg) rotateY(-1deg);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        z-index: 100;
+      }
+
+      .p-sm { flex: 1 1 15%; min-width: 100px; }
+      .p-md { flex: 1 1 20%; min-width: 130px; }
+      .p-lg { flex: 1 1 30%; min-width: 160px; }
+      .p-xl { flex: 1 1 30%; min-width: 200px; }
+
+      /* Boton Scroll */
+      .scroll-down {
+        margin-top: 35px;
+        opacity: 0;
+        animation: fadeIn 1s ease forwards;
+        animation-delay: 2.2s;
+        cursor: pointer;
+      }
+
+      .scroll-down span {
+        font-size: 2rem;
+        color: #9ca3af;
+        display: inline-block;
+        animation: bounce 1.5s infinite;
+      }
+
+    /* ================= MAIN CONTENT ============================ */
+      .main-content {
+        padding: 20px 20px 60px 20px;
+        max-width: 900px;
+        margin: auto;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s ease;
+      }
+
+      .main-content.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .container {
+        background: rgba(17, 24, 39, 0.5);
+        padding: 40px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        color: #e5e7eb;
+        border-left: 3px solid #3b82f6;
+        padding-left: 10px;
+      }
+
+      .separator {
+        border: 0;
+        height: 1px;
+        background: linear-gradient(to right, rgba(59, 130, 246, 0.5), transparent);
+        margin: 40px 0;
+      }
+
+    /* ================= TABLA DE PROYECTOS ====================== */
+      .status-badge {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-left: 10px;
+      }
+      .status-on { 
+          background: rgba(234, 179, 8, 0.1); /* Amarillo */
+          color: #fde047; 
+          border: 1px solid rgba(234, 179, 8, 0.2); 
+      }
+      .status-off { 
+          background: rgba(34, 197, 94, 0.1); /* Verde */
+          color: #4ade80; 
+          border: 1px solid rgba(34, 197, 94, 0.2); 
+      }
+      .status-info { 
+          background: rgba(168, 85, 247, 0.1); /* Violeta */
+          color: #c084fc; 
+          border: 1px solid rgba(168, 85, 247, 0.2); 
+      }
+      .status-maintenance { 
+          background: rgba(20, 184, 166, 0.1); /* Cian */
+          color: #5eead4; 
+          border: 1px solid rgba(20, 184, 166, 0.2);
+      }
+
+      .meta-text {
+        font-family: monospace;
+        font-size: 0.7rem;
+        color: #4b5563;
+      }
+
+      .data-table {
+        display: flex;
+        background: rgba(17, 24, 39, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 15px;
+      }
+
+      .table-control {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 15px 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-right: 1px solid rgba(255, 255, 255, 0.15);
+        width: 45px;
+        flex-shrink: 0;
+      }
+
+      .table-item {
+        padding: 15px 20px;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .col-sistema {
+        width: 180px;
+        flex-shrink: 0;
+      }
+
+      .col-implementacion {
+        flex: 3;
+      }
+
+      .table-item:last-child { border-right: none; }
+
+      .table-label {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #9ca3af;
+        font-weight: 700;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        height: 22px; 
+        line-height: 14px;
+        margin-bottom: 12px;
+        display: block;
+        width: 100%;
+      }
+
+      .table-value {
+        font-size: 0.85rem;
+        color: #d1d5db;
+        line-height: 1.4;
+      }
+
+      /* ACORDEON */
+      details.tech-specs {
+        margin-top: 1 px;
+        width: 100%;
+      }
+
+      details.tech-specs summary {
+        list-style: none;
+        outline: none;
+        cursor: pointer;
+        font-family: monospace;
+        font-size: 0.7rem;
+        color: #3b82f6;
+        text-align: center;
+        padding: 0;
+        border: none;
+      }
+
+      details.tech-specs summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .specs-content {
+        padding: 10px 15px;
+        font-family: monospace;
+        font-size: 0.75rem;
+        color: #9ca3af;
+        line-height: 1.4;
+        text-align: left;
+      }
+
+    /* ================= GRILLA HABILIDADES ====================== */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .card {
+        background: #111827;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: all 0.25s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(59,130,246,0.4);
+      }
+
+      .card h3 { font-size: 1rem; color: #3b82f6; margin-bottom: 8px; }
+      .card p { font-size: 0.85rem; color: #9ca3af; line-height: 1.4; }
+
+      .tags-container { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 15px; }
+
+      .tag {
+        background: rgba(255, 255, 255, 0.03); 
+        color: #9ca3af;
+        padding: 4px 10px;
+        border-radius: 5px;
+        font-size: 0.7rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.3s ease;
+        font-weight: 500;
+        cursor: default;
+        user-select: none;
+      }
+
+      .tag:hover {
+        background: rgba(17, 24, 39, 0.95); 
+        border-color: rgba(59, 130, 246, 0.6); 
+        color: #eff6ff; 
+        text-shadow: 0 0 5px #3b82f6, 0 0 10px #3b82f6;
+        font-weight: 700;
+      }
+
+    /* ================= CONTACT CARD (SPOTLIGHT) ================ */
+      .card-contact {
+        position: relative;
+        overflow: hidden;
+        background: #111827;
+        padding: 15px 30px;
+        min-height: auto;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.05);
+      }
+
+      .spotlight {
+        pointer-events: none;
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: radial-gradient(
+          400px circle at var(--x) var(--y), 
+          rgba(59, 130, 246, 0.08), 
+          transparent 80%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .card-contact:hover .spotlight { opacity: 1; }
+
+      .contact-row-simple {
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+        position: relative;
+      }
+
+      .contact-item-simple { display: flex; flex-direction: column; gap: 5px; }
+
+      .contact-label-simple {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        color: #9ca3af;
+        letter-spacing: 1px;
+        font-weight: 700;
+      }
+
+    /* ================= FOOTER ================================== */
+      footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 40px 20px;
+        max-width: 900px;
+        margin: 0 auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        color: #6b7280;
+        font-size: 0.85rem;
+      }
+
+      .footer-version { font-style: italic; color: #4b5563; font-size: 0.75rem; }
+
+    /* ================= RESPONSIVE ============================== */
+      @media (max-width: 768px) {
+        .skills-grid { grid-template-columns: 1fr; }
+        .table-control { display: none; }
+        .data-table { flex-direction: column; }
+        .table-item { width: 100% !important; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+        .contact-row-simple { flex-direction: column; align-items: center; text-align: center; }
+        footer { flex-direction: column; gap: 10px; }
+      }
+
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>0xdefe</h1>
+    <p class="role">Backend & Data Developer</p>
+    <p class="description">Desarrollador de Sistemas de Información y Automatización de Datos</p>
+
+    <div class="tech-stack">
+      <div class="puzzle-wall">
+          <div class="brick-row">
+            <div class="tech-piece base-foundation">🗄️ Base de datos Transaccionales</div>
+          </div>
+
+          <div class="brick-row">
+            <div class="tech-piece p-xl">☁️ Servicios Cloud</div>
+            <div class="tech-piece p-xl">🏗️ Arquitectura Escalable</div>
+            <div class="tech-piece p-xl">📡 Integracion con APIs</div>
+          </div>
+
+          <div class="brick-row">
+            <div class="tech-piece p-md">🕵️ Monitoreo</div>
+            <div class="tech-piece p-md">💾 Respaldos</div>
+            <div class="tech-piece p-md">🛠️ Soporte</div>
+            <div class="tech-piece p-md">🔍 Trazabilidad</div>
+          </div>
+
+          <div class="brick-row">
+            <div class="tech-piece p-sm">⚡ Query Opt</div>
+            <div class="tech-piece p-sm">🚥 ACID Docs</div>
+            <div class="tech-piece p-lg">🔗 Integracion End-to-End</div>
+            <div class="tech-piece p-sm">🧪 Unit Test</div>
+            <div class="tech-piece p-sm">🚛 CI/CD Ops</div>
+          </div>
+
+          <div class="brick-row">
+            <div class="tech-piece p-md">✨ Interfaz Reactiva</div>
+            <div class="tech-piece p-xl">🔄 Acciones Automaticas</div>
+            <div class="tech-piece p-md">📊 Reportes y Graficos</div>
+          </div>
+
+          <div class="brick-row">
+            <div class="tech-piece p-sm">💻 JavaScript</div>
+            <div class="tech-piece p-sm">🍃 MongoDB</div>
+            <div class="tech-piece p-sm">⚙️ SQL Server</div>
+            <div class="tech-piece p-sm">🐍 Python</div>
+            <div class="tech-piece p-sm">🐱 GitHub</div>
+            <div class="tech-piece p-sm">🐳 Docker</div>
+          </div>
+      </div>
+    </div>
+
+    <div class="scroll-down" id="scrollBtn">
+      <span>⌄</span>
+    </div>
+  </header>
+
+  <section id="contenido" class="main-content">
+    <div class="container">
+      <h2>Sobre mí</h2>
+      <p>Enfocado en el desarrollo de aplicaciones de gestión y administración. Diseño soluciones integrales —desde la arquitectura de la base de datos hasta la interfaz de usuario— priorizando siempre la estabilidad del sistema y la claridad de la información.<br>
+      Futuro Ingeniero en Informática.</p>
+
+      <hr class="separator">
+
+      <h2>Proyectos destacados</h2>
+      <div class="data-table" style="flex-direction: column; margin-bottom: 25px;">
+        <div style="background: rgba(255,255,255,0.05); padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+              <div style="font-size: 0.85rem; font-weight: 700; color: #3b82f6; margin-bottom: 8px;">
+                Achiras: Sistema AMS (Association Management Software) para Casa Cultural
+              </div>
+              
+              <div style="display: flex; gap: 5px;">
+                <span class="status-badge status-off">COMPLETED</span>
+                <span class="status-badge status-maintenance">LONG_TERM_SUPP</span>
+                <span class="status-badge status-info">INDIE_DEV</span>
+              </div>
+          </div>
+
+          <span style="color: #4b5563; font-family: monospace; font-size: 0.8rem;">ID_01</span>
+        </div>
+        
+        <div style="display: flex; gap: 20px; padding: 5px 15px; background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.03);">
+          <span class="meta-text">INIT_DATE: 2026-01-15</span>
+          <span class="meta-text">ENGINE: MSSQL_SERVER_2019</span>
+          <span class="meta-text">LOC: CASTELAR_BSAS</span>
+          <span class="meta-text">TEAM_MEMBERS: 1</span>
+        </div>
+        
+        <div style="display: flex; border-bottom: 1px solid rgba(255,255,255,0.03);">
+          <div class="table-item" style="width: 150px; flex-shrink: 0;">
+            <span class="table-label">Rol</span>
+            <span class="table-value">Full Stack Data Developer</span>
+          </div>
+          <div class="table-item col-implementacion">
+            <span class="table-label">Implementación</span>
+            <span class="table-value">Diseño y puesta en marcha de una plataforma a medida para centralizar la administración de socios, cobranzas y reportes. Desarrollé toda la estructura técnica para asegurar un sistema robusto, entregando al usuario una interfaz ágil y funcional para el control operativo total.
+            </span>
+          </div>
+        </div>
+
+        <details class="tech-specs">
+          <summary>[ DETAILS ]</summary>
+          <div class="specs-content">
+            <strong>• Arquitectura:</strong> Diseño end-to-end con lógica de negocio desacoplada.<br>
+            <strong>• Persistencia:</strong> Esquema optimizado con tipos de datos fijos (CHAR) para alineación de memoria y columnas precalculadas para performance en lectura.<br>
+            <strong>• Backend:</strong> Implementación de Stored Procedures para integridad transaccional y validación interna.<br>
+            <strong>• Auditoría:</strong> Sistema de bitácoras dual (Logs de negocio y Logs de sistema/acceso).<br>
+            <strong>• QA:</strong> Pruebas de integración manuales sobre flujos críticos de datos.<br>
+            <strong>• UI/UX:</strong> Desarrollo en Budibase con automatizaciones de flujo para el operador final.
+          </div>
+        </details>
+      </div>
+      
+      <div class="data-table" style="display: none;">
+        <div style="background: rgba(255,255,255,0.05); padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+              <div style="font-size: 0.85rem; font-weight: 700; color: #3b82f6; margin-bottom: 8px;">
+                Lirios: Sistema IoT Data Pipeline
+              </div>
+              
+              <div style="display: flex; gap: 5px;">
+                <span class="status-badge status-on">IN_PROGRESS</span>
+                <span class="status-badge status-info">INTERNAL_USE</span>
+              </div>
+          </div>
+
+          <span style="color: #4b5563; font-family: monospace; font-size: 0.8rem;">ID_02</span>
+        </div>
+      
+        <div style="display: flex; gap: 20px; padding: 5px 15px; background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.03);">
+          <span class="meta-text">INIT_DATE: 2026-02-01</span>
+          <span class="meta-text">STACK: NODE_MQTT_DOCKER</span>
+          <span class="meta-text">ENV: PRODUCTION_TESTING</span>
+        </div>
+
+        <div style="display: flex;">
+          <div class="table-item" style="width: 150px; flex-shrink: 0;">
+            <span class="table-label">Rol</span>
+            <span class="table-value">Data Engineer</span>
+          </div>
+          <div class="table-item col-implementacion">
+            <span class="table-label">Implementación</span>
+            <span class="table-value">Captura de sensores via MQTT y procesamiento distribuido.<a href="#" style="color:#3b82f6; text-decoration:none; font-size: 0.75rem; margin-left: 10px;">[ v_code ]</a>
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+      <hr class="separator">
+
+      <h2>Habilidades</h2>
+      <div class="skills-grid">
+        <div class="card">
+          <h3>Base de datos</h3>
+          <p>Diseño e implementacion para sistemas relacionales, transaccionales y NoSQL.</p>
+          <div class="tags-container">
+            <span class="tag">SQL Server</span>
+            <span class="tag">Postgre SQL</span>
+            <span class="tag">MongoDB</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Lenguajes</h3>
+          <p>Desarrollo de lógica de bajo nivel y backend robusto para el procesamiento de flujos de datos.</p>
+          <div class="tags-container">
+            <span class="tag">C/C++</span>
+            <span class="tag">Java</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Python</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Hardware & IoT</h3>
+          <p>Captura de datos desde hardware embebido y envío directo a servidores/nube.</p>
+          <div class="tags-container">
+            <span class="tag">Raspberry Pi</span>
+            <span class="tag">Electrónica digital</span>
+            <span class="tag">Microcontroladores</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Deploy</h3>
+          <p>Contenerización de aplicaciones y gestión de flujos para el despliegue directo a producción.</p>
+          <div class="tags-container">
+            <span class="tag">Docker</span>
+            <span class="tag">CI/CD</span>
+            <span class="tag">ngrok</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Frameworks/Plataformas</h3>
+          <p>Prototipado rápido y escalable. Integración de servicios y automatización de flujos de trabajo.</p>
+          <div class="tags-container">
+            <span class="tag">n8n</span>
+            <span class="tag">Budibase</span>
+            <span class="tag">PaaS</span>
+            <span class="tag">Metabase</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="separator">
+
+      <div class="card-contact" id="contactCard" style="padding: 15px 30px;">
+        <div class="spotlight"></div>
+        <div class="contact-row-simple">
+          <div class="contact-item-simple">
+            <span class="contact-label-simple">SOURCE_REPO</span>
+            <span class="contact-value" style="font-family: monospace;">github.com/0xdefe</span>
+          </div>
+          <div class="contact-item-simple">
+            <span class="contact-label-simple">NETWORK_NODE</span>
+            <span class="contact-value" style="font-family: monospace;">linkedin.com/in/federico-ariel-hansen</span>
+          </div>
+          <div class="contact-item-simple">
+            <span class="contact-label-simple">DIRECT_ACCESS</span>
+            <span class="contact-value" style="font-family: monospace;">hansenfederico@hotmail.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© <span id="year"></span> - Diseñada y construida por 0xdefe</p>
+    <span class="footer-version">version: rel 1.01</span>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+    window.addEventListener("beforeunload", () => { window.scrollTo(0, 0); });
+
+    let scrollLocked = true;
+    function preventScroll(e) { if (scrollLocked) e.preventDefault(); }
+    window.addEventListener("wheel", preventScroll, { passive: false });
+    window.addEventListener("touchmove", preventScroll, { passive: false });
+
+    document.getElementById("scrollBtn").addEventListener("click", () => {
+      scrollLocked = false;
+      document.body.style.overflow = "auto";
+      window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+    });
+
+    const contactCard = document.getElementById('contactCard');
+    contactCard.addEventListener('mousemove', (e) => {
+      const rect = contactCard.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      contactCard.style.setProperty('--x', `${x}px`);
+      contactCard.style.setProperty('--y', `${y}px`);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("show");
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".main-content").forEach(sec => observer.observe(sec));
+  </script>
+</body>
+</html>
