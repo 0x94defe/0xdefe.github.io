@@ -94,14 +94,14 @@
 
       .base-foundation {
         flex: 1;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        border-bottom: 3px solid rgba(255, 255, 255, 0.008) !important; 
-        color: #9ca3af !important;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 3px solid rgba(255, 255, 255, 0.008);
+        color: #9ca3af;
         font-weight: 500;
         letter-spacing: 2px;
         text-transform: uppercase;
-        padding: 18px !important;
+        padding: 18px;
       }
 
       .tech-piece {
@@ -221,6 +221,18 @@
       }
 
       .meta-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .meta-label {
+        font-family: monospace;
+        font-size: 0.7rem;
+        color: #4b5563;
+        font-weight: 900;
+      }
+
+      .meta-value {
         font-family: monospace;
         font-size: 0.7rem;
         color: #4b5563;
@@ -253,15 +265,6 @@
         border-right: 1px solid rgba(255, 255, 255, 0.08);
       }
 
-      .col-sistema {
-        width: 180px;
-        flex-shrink: 0;
-      }
-
-      .col-implementacion {
-        flex: 3;
-      }
-
       .table-item:last-child { border-right: none; }
 
       .table-label {
@@ -284,9 +287,63 @@
         line-height: 1.4;
       }
 
+      .project-card {
+        flex-direction: column;
+        margin-bottom: 25px;
+      }
+
+      .project-header {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 10px 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        position: relative;
+      }
+
+      .project-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #3b82f6;
+        margin-bottom: 8px;
+      }
+
+      .project-badges {
+        display: flex;
+        gap: 5px;
+      }
+
+      .project-id {
+        color: #4b5563;
+        font-family: monospace;
+        font-size: 0.8rem;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+      }
+
+      .project-meta {
+        display: flex;
+        gap: 20px;
+        padding: 5px 15px;
+        background: rgba(0, 0, 0, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      .project-body {
+        display: flex;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      .col-rol {
+        width: 150px;
+        flex-shrink: 0;
+      }
+
       /* ACORDEON */
       details.tech-specs {
-        margin-top: 1 px;
+        margin-top: 1px;
         width: 100%;
       }
 
@@ -424,10 +481,77 @@
     /* ================= RESPONSIVE ============================== */
       @media (max-width: 768px) {
         .skills-grid { grid-template-columns: 1fr; }
+
         .table-control { display: none; }
         .data-table { flex-direction: column; }
-        .table-item { width: 100% !important; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-        .contact-row-simple { flex-direction: column; align-items: center; text-align: center; }
+        .table-item { 
+          width: 100% !important;
+          border-right: none;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .contact-row-simple { 
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .project-body { flex-direction: column; }
+
+        .col-rol {
+          width: 100%;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          border-right: none;
+        }
+
+        .project-header {
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .project-meta {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 6px 10px;
+        }
+
+        .project-title {
+          font-size: 0.8rem;
+          line-height: 1.4;
+          word-break: break-word;
+        }
+
+        .project-badges { flex-wrap: wrap; }
+
+        .tech-piece {
+          flex-direction: column;
+          gap: 2px;
+          font-size: 0.6rem;
+          padding: 6px 8px;
+          white-space: normal;
+          text-align: center;
+          justify-content: flex-start;
+          align-items: center;
+        }
+
+        .brick-row { align-items: stretch; }
+
+        .p-sm { min-width: 40px; }
+        .p-md { min-width: 60px; }
+        .p-lg { min-width: 80px; }
+        .p-xl { min-width: 100px; }
+
+        .tech-stack {
+          margin-top: 15px;
+          transform: scale(0.85);
+          transform-origin: top center;
+        }
+
+        header {
+          padding-top: 10px;
+          justify-content: flex-start;
+        }
+        
         footer { flex-direction: column; gap: 10px; }
       }
 
@@ -444,45 +568,40 @@
 
     <div class="tech-stack">
       <div class="puzzle-wall">
-          <div class="brick-row">
-            <div class="tech-piece base-foundation">🗄️ Base de datos Transaccionales</div>
-          </div>
-
-          <div class="brick-row">
-            <div class="tech-piece p-xl">☁️ Servicios Cloud</div>
-            <div class="tech-piece p-xl">🏗️ Arquitectura Escalable</div>
-            <div class="tech-piece p-xl">📡 Integracion con APIs</div>
-          </div>
-
-          <div class="brick-row">
-            <div class="tech-piece p-md">🕵️ Monitoreo</div>
-            <div class="tech-piece p-md">💾 Respaldos</div>
-            <div class="tech-piece p-md">🛠️ Soporte</div>
-            <div class="tech-piece p-md">🔍 Trazabilidad</div>
-          </div>
-
-          <div class="brick-row">
-            <div class="tech-piece p-sm">⚡ Query Opt</div>
-            <div class="tech-piece p-sm">🚥 ACID Docs</div>
-            <div class="tech-piece p-lg">🔗 Integracion End-to-End</div>
-            <div class="tech-piece p-sm">🧪 Unit Test</div>
-            <div class="tech-piece p-sm">🚛 CI/CD Ops</div>
-          </div>
-
-          <div class="brick-row">
-            <div class="tech-piece p-md">✨ Interfaz Reactiva</div>
-            <div class="tech-piece p-xl">🔄 Acciones Automaticas</div>
-            <div class="tech-piece p-md">📊 Reportes y Graficos</div>
-          </div>
-
-          <div class="brick-row">
-            <div class="tech-piece p-sm">💻 JavaScript</div>
-            <div class="tech-piece p-sm">🍃 MongoDB</div>
-            <div class="tech-piece p-sm">⚙️ SQL Server</div>
-            <div class="tech-piece p-sm">🐍 Python</div>
-            <div class="tech-piece p-sm">🐱 GitHub</div>
-            <div class="tech-piece p-sm">🐳 Docker</div>
-          </div>
+        <div class="brick-row">
+          <div class="tech-piece base-foundation">🗄️ Base de datos Transaccionales</div>
+        </div>
+        <div class="brick-row">
+          <div class="tech-piece p-xl"><span>☁️</span><span>Servicios Cloud</span></div>
+          <div class="tech-piece p-xl"><span>🏗️</span><span>Arquitectura Escalable</span></div>
+          <div class="tech-piece p-xl"><span>📡</span><span>Integracion con APIs</span></div>
+        </div>
+        <div class="brick-row">
+          <div class="tech-piece p-md"><span>🕵️</span><span>Monitoreo</span></div>
+          <div class="tech-piece p-md"><span>💾</span><span>Respaldos</span></div>
+          <div class="tech-piece p-md"><span>🛠️</span><span>Soporte</span></div>
+          <div class="tech-piece p-md"><span>🔍</span><span>Trazabilidad</span></div>
+        </div>
+        <div class="brick-row">
+          <div class="tech-piece p-sm"><span>⚡</span><span>Query Opt</span></div>
+          <div class="tech-piece p-sm"><span>📐</span><span>Data model</span></div>
+          <div class="tech-piece p-lg"><span>🔗</span><span>Integracion End-to-End</span></div>
+          <div class="tech-piece p-sm"><span>🧪</span><span>Unit Test</span></div>
+          <div class="tech-piece p-sm"><span>🚛</span><span>CI/CD Ops</span></div>
+        </div>
+        <div class="brick-row">
+          <div class="tech-piece p-md"><span>✨</span><span>Interfaz Reactiva</span></div>
+          <div class="tech-piece p-xl"><span>🔄</span><span>Acciones Automaticas</span></div>
+          <div class="tech-piece p-md"><span>📊</span><span>Reportes y Graficos</span></div>
+        </div>
+        <div class="brick-row">
+          <div class="tech-piece p-sm"><span>🐍</span><span>Python</span></div>
+          <div class="tech-piece p-sm"><span>⚙️</span><span>SQL Server</span></div>
+          <div class="tech-piece p-sm"><span>🐱</span><span>GitHub</span></div>
+          <div class="tech-piece p-sm"><span>🍃</span><span>Mongo DB</span></div>
+          <div class="tech-piece p-sm"><span>💻</span><span>Java Script</span></div>
+          <div class="tech-piece p-sm"><span>🐳</span><span>Docker</span></div>
+        </div>
       </div>
     </div>
 
@@ -494,45 +613,53 @@
   <section id="contenido" class="main-content">
     <div class="container">
       <h2>Sobre mí</h2>
-      <p>Enfocado en el desarrollo de aplicaciones de gestión y administración. Diseño soluciones integrales —desde la arquitectura de la base de datos hasta la interfaz de usuario— priorizando siempre la estabilidad del sistema y la claridad de la información.<br>
-      Futuro Ingeniero en Informática.</p>
+      <p>Estudio Ingeniería en Informática y me enfoco en desarrollo backend y sistemas de gestión. Me formé con C y Java, y actualmente desarrollo aplicaciones utilizando Python, JavaScript y SQL Server, trabajando desde la base de datos hasta la interfaz.<br><br>Uno de mis principales proyectos fue el desarrollo completo del sistema de gestión de una casa cultural. Me encargué de diseñar la base de datos, implementar la lógica de negocio, automatizaciones e interfaz. Actualmente el sistema está en uso y centraliza tareas administrativas que antes se manejaban de forma manual.<br><br>Me interesa seguir creciendo en backend, arquitectura de software y sistemas orientados a datos, participando en proyectos donde pueda desarrollar sistemas cada vez más sólidos, escalables y completos.</p>
 
       <hr class="separator">
 
       <h2>Proyectos destacados</h2>
-      <div class="data-table" style="flex-direction: column; margin-bottom: 25px;">
-        <div style="background: rgba(255,255,255,0.05); padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: flex-start;">
+      <div class="data-table project-card">
+        <div class="project-header">
+          <span class="project-id">ID_01</span>
           <div>
-              <div style="font-size: 0.85rem; font-weight: 700; color: #3b82f6; margin-bottom: 8px;">
-                Achiras: Sistema AMS (Association Management Software) para Casa Cultural
-              </div>
-              
-              <div style="display: flex; gap: 5px;">
-                <span class="status-badge status-off">COMPLETED</span>
-                <span class="status-badge status-maintenance">LONG_TERM_SUPP</span>
-                <span class="status-badge status-info">INDIE_DEV</span>
-              </div>
+            <div class="project-title">
+              Achiras: Sistema AMS (Association Management Software) para Casa Cultural
+            </div>
+            <div class="project-badges">
+              <span class="status-badge status-off">COMPLETED</span>
+              <span class="status-badge status-maintenance">LONG_TERM_SUPP</span>
+              <span class="status-badge status-info">INDIE_DEV</span>
+            </div>
           </div>
+        </div>
 
-          <span style="color: #4b5563; font-family: monospace; font-size: 0.8rem;">ID_01</span>
+      <div class="project-meta">
+        <div class="meta-text">
+          <span class="meta-label">INIT_DATE:</span>
+          <span class="meta-value">2026-01-15</span>
         </div>
-        
-        <div style="display: flex; gap: 20px; padding: 5px 15px; background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.03);">
-          <span class="meta-text">INIT_DATE: 2026-01-15</span>
-          <span class="meta-text">ENGINE: MSSQL_SERVER_2019</span>
-          <span class="meta-text">LOC: CASTELAR_BSAS</span>
-          <span class="meta-text">TEAM_MEMBERS: 1</span>
+        <div class="meta-text">
+          <span class="meta-label">ENGINE:</span>
+          <span class="meta-value">MSSQL_SERVER_2019</span>
         </div>
-        
-        <div style="display: flex; border-bottom: 1px solid rgba(255,255,255,0.03);">
-          <div class="table-item" style="width: 150px; flex-shrink: 0;">
+        <div class="meta-text">
+          <span class="meta-label">SITE:</span>
+          <span class="meta-value">CASTELAR_BSAS</span>
+        </div>
+        <div class="meta-text">
+          <span class="meta-label">TEAM_MEMBERS:</span>
+          <span class="meta-value">1</span>
+        </div>
+      </div>
+
+        <div class="project-body">
+          <div class="table-item col-rol">
             <span class="table-label">Rol</span>
             <span class="table-value">Full Stack Data Developer</span>
           </div>
-          <div class="table-item col-implementacion">
+          <div class="table-item">
             <span class="table-label">Implementación</span>
-            <span class="table-value">Diseño y puesta en marcha de una plataforma a medida para centralizar la administración de socios, cobranzas y reportes. Desarrollé toda la estructura técnica para asegurar un sistema robusto, entregando al usuario una interfaz ágil y funcional para el control operativo total.
-            </span>
+            <span class="table-value">Diseño y puesta en marcha de una plataforma a medida para centralizar la administración de socios, cobranzas y reportes. Desarrollé toda la estructura técnica para asegurar un sistema robusto, entregando al usuario una interfaz ágil y funcional para el control operativo total.</span>
           </div>
         </div>
 
@@ -549,36 +676,35 @@
         </details>
       </div>
       
-      <div class="data-table" style="display: none;">
-        <div style="background: rgba(255,255,255,0.05); padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center;">
+      <div class="data-table project-card" style="display: none;">
+        <div class="project-header">
           <div>
-              <div style="font-size: 0.85rem; font-weight: 700; color: #3b82f6; margin-bottom: 8px;">
-                Lirios: Sistema IoT Data Pipeline
-              </div>
-              
-              <div style="display: flex; gap: 5px;">
-                <span class="status-badge status-on">IN_PROGRESS</span>
-                <span class="status-badge status-info">INTERNAL_USE</span>
-              </div>
+            <div class="project-title">
+              Lirios: Sistema IoT Data Pipeline
+            </div>
+            <div class="project-badges">
+              <span class="status-badge status-on">IN_PROGRESS</span>
+              <span class="status-badge status-info">INTERNAL_USE</span>
+            </div>
           </div>
-
-          <span style="color: #4b5563; font-family: monospace; font-size: 0.8rem;">ID_02</span>
+          <span class="project-id">ID_02</span>
         </div>
-      
-        <div style="display: flex; gap: 20px; padding: 5px 15px; background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.03);">
+
+        <div class="project-meta">
           <span class="meta-text">INIT_DATE: 2026-02-01</span>
           <span class="meta-text">STACK: NODE_MQTT_DOCKER</span>
           <span class="meta-text">ENV: PRODUCTION_TESTING</span>
         </div>
 
-        <div style="display: flex;">
-          <div class="table-item" style="width: 150px; flex-shrink: 0;">
+        <div class="project-body">
+          <div class="table-item col-rol">
             <span class="table-label">Rol</span>
             <span class="table-value">Data Engineer</span>
           </div>
-          <div class="table-item col-implementacion">
+          <div class="table-item">
             <span class="table-label">Implementación</span>
-            <span class="table-value">Captura de sensores via MQTT y procesamiento distribuido.<a href="#" style="color:#3b82f6; text-decoration:none; font-size: 0.75rem; margin-left: 10px;">[ v_code ]</a>
+            <span class="table-value">Captura de sensores via MQTT y procesamiento distribuido.
+              <a href="#" style="color:#3b82f6; text-decoration:none; font-size: 0.75rem; margin-left: 10px;">[ v_code ]</a>
             </span>
           </div>
         </div>
@@ -596,6 +722,15 @@
             <span class="tag">SQL Server</span>
             <span class="tag">Postgre SQL</span>
             <span class="tag">MongoDB</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Data Engineering & SQL</h3>
+          <p>Diseño de esquemas relacionales, implementación de lógica transaccional y auditoría de datos.</p>
+          <div class="tags-container">
+            <span class="tag">T-SQL</span>
+            <span class="tag">Stored Procedures</span>
+            <span class="tag">ACID</span>
           </div>
         </div>
         <div class="card">
@@ -658,6 +793,7 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
   <footer>
@@ -676,7 +812,14 @@
     window.addEventListener("wheel", preventScroll, { passive: false });
     window.addEventListener("touchmove", preventScroll, { passive: false });
 
-    document.getElementById("scrollBtn").addEventListener("click", () => {
+    const scrollBtn = document.getElementById("scrollBtn");
+
+    scrollBtn.addEventListener("animationend", () => {
+      scrollLocked = false;
+      document.body.style.overflow = "auto";
+    });
+
+    scrollBtn.addEventListener("click", () => {
       scrollLocked = false;
       document.body.style.overflow = "auto";
       window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
